@@ -19,7 +19,8 @@ import java.util.logging.Logger;
 public class CustomDataSource implements DataSource {
 
     private static LinkedList<Connection> pool = new LinkedList<Connection>();
-    private static final String name = "com.mysql.jdbc.Driver";
+
+    /*private static final String name = "com.mysql.jdbc.Driver";
     private static final String url = "jdbc:mysql://139.196.165.243:3306/vick_test";
     private static final String user = "root";
     private static final String password = "success";
@@ -34,26 +35,49 @@ public class CustomDataSource implements DataSource {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }*/
+    private static String name;
+    private static String url;
+    private static String user;
+    private static String password;
+
+    public CustomDataSource(String name, String url, String user, String password) {
+        CustomDataSource.name = name;
+        CustomDataSource.url = url;
+        CustomDataSource.user = user;
+        CustomDataSource.password = password;
+        init();
     }
 
+    private void init() {
+        try {
+            Class.forName(name);
+            for (int i = 0; i < 1; i++) {
+                Connection conn = DriverManager.getConnection(url, user, password);
+                pool.add(conn);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public Connection getConnection() throws SQLException {
-        if(pool.size()>0){
+        if (pool.size() > 0) {
             final Connection conn = pool.remove();
             //返回动态代理对象
             return (Connection) Proxy.newProxyInstance(conn.getClass().getClassLoader(), conn.getClass().getInterfaces(), new InvocationHandler() {
                 @Override
                 public Object invoke(Object proxy, Method method, Object[] args)
                         throws Throwable {
-                    if("close".equals(method.getName())){
+                    if ("close".equals(method.getName())) {
                         return pool.add(conn);
-                    }else {
+                    } else {
                         return method.invoke(conn, args);
                     }
                 }
             });
-        }else{
+        } else {
             throw new RuntimeException("对不起，服务器忙...");
         }
 
