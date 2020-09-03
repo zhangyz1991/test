@@ -7,6 +7,7 @@ import com.vick.test.util.jdbc.dao.JdbcTemplate;
 import com.vick.test.util.jdbc.dao.RowMapper;
 import com.vick.test.util.redis.BaseRedisDao;
 import com.vick.test.util.redis.RedisUtil;
+import org.springframework.data.redis.core.RedisTemplate;
 import redis.clients.jedis.Jedis;
 
 import javax.sql.DataSource;
@@ -31,6 +32,9 @@ public class RedisTest {
         BaseRedisDao baseRedisDao = RedisUtil.getBaseRedisDao("139.196.165.243", 6379, "success", 2);
         //setTest(baseRedisDao);
         getTest(baseRedisDao);
+
+        //RedisTemplate redisTemplate = RedisUtil.getRedisTemplate("139.196.165.243", 6379, "success", 2);
+        //setTest(redisTemplate);
     }
 
     private static void getTest(Jedis redis) {
@@ -60,6 +64,13 @@ public class RedisTest {
         Map<String, Integer> provinceMap = getDistrictMap();
         //将对象存入redis
         baseRedisDao.set(DISTRICT_PROVINCE_NAME_ID_MAP_KEY, provinceMap);
+    }
+
+    private static void setTest(RedisTemplate redisTemplate) {
+        Map<String, Integer> provinceMap = getDistrictMap();
+        //将对象存入redis
+        //redisTemplate.boundValueOps(DISTRICT_PROVINCE_NAME_ID_MAP_KEY).set(provinceMap);
+        redisTemplate.opsForValue().set(DISTRICT_PROVINCE_NAME_ID_MAP_KEY, provinceMap);
     }
 
     private static void getTest(BaseRedisDao baseRedisDao) {

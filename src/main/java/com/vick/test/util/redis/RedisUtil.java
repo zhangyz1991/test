@@ -34,7 +34,6 @@ public class RedisUtil {
         RedisSerializer redisSerializer = redisConfiguration.fastJson2JsonRedisSerializer();
         RedisTemplate<String, String> redisTemplate = redisConfiguration.redisTemplate(jedisConnectionFactory, redisSerializer);
         //RedisTemplate redisTemplate = new RedisTemplate();
-        //redisTemplate.setDefaultSerializer(new Jackson2JsonRedisSerializer(Object.class));
         //redisTemplate.setConnectionFactory(jedisConnectionFactory);
         /**必须执行这个函数,初始化RedisTemplate*/
         //redisTemplate.afterPropertiesSet();
@@ -152,6 +151,17 @@ public class RedisUtil {
     }
 
     @Deprecated
+    public static Object get(Jedis redis, String key) throws ClassNotFoundException, IOException {
+        Map<String, String> map = redis.hgetAll(key);
+        Map<String, Object> valuesMap = new HashMap<>();
+        int stringFlag = 0;
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            Integer integer = (Integer) SerializeUtil.serializeToObject(entry.getValue());
+            valuesMap.put(entry.getKey(), integer);
+        }
+        return valuesMap;
+    }
+
     private static class RedisConfig {
         private String ip;
         private int port;
