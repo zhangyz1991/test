@@ -27,7 +27,7 @@
             <artifactId>spring-data-redis</artifactId>
             <version>2.3.3.RELEASE</version>
         </dependency>
-        <!-- spring-data-redis -->
+        <!-- spring-data-redis 使用到用来序列化和反序列化 -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
@@ -45,11 +45,6 @@
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-core</artifactId>
-            <version>1.2.3</version>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
             <version>1.2.3</version>
         </dependency>
     </dependencies>
