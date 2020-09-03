@@ -81,7 +81,7 @@ public class JdbcTemplate extends JdbcAccessor implements JdbcOperations{
         });
     }
 
-    //@Override
+    @Override
     @Nullable
     public <T> T execute(PreparedStatementCreator psc, PreparedStatementCallback<T> action)
             throws DataAccessException {
@@ -142,10 +142,12 @@ public class JdbcTemplate extends JdbcAccessor implements JdbcOperations{
             this.sql = sql;
         }
 
+        @Override
         public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
             return con.prepareStatement(this.sql);
         }
 
+        @Override
         public String getSql() {
             return this.sql;
         }
