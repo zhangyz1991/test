@@ -1,7 +1,6 @@
 package com.vick.test.util.jdbc.dao;
 
 import com.sun.istack.internal.Nullable;
-import com.vick.test.util.jdbc.DataRetrievalFailureException;
 import com.vick.test.util.jdbc.beans.*;
 import com.vick.test.util.jdbc.convert.ConversionService;
 import com.vick.test.util.jdbc.convert.support.DefaultConversionService;

@@ -1,4 +1,4 @@
-package com.vick.test.util.jdbc;
+package com.vick.test.util.jdbc.dao;
 
 import com.sun.istack.internal.Nullable;
 import com.vick.test.util.jdbc.dao.NonTransientDataAccessException;
