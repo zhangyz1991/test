@@ -9,5 +9,5 @@ public interface JdbcOperations {
     <T> List<T> query(String sql, Object[] args, RowMapper<T> rowMapper) throws DataAccessException;
 
     @Nullable
-    <T> T execute(PreparedStatementCreator psc, PreparedStatementCallback<T> action) throws org.springframework.dao.DataAccessException;
+    <T> T execute(PreparedStatementCreator psc, PreparedStatementCallback<T> action) throws DataAccessException;
 }

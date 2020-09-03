@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * @author Vick Zhang
- * @create 2020/8/22
+ * @date 2020/8/22
  */
 public class JdbcTemplate extends JdbcAccessor implements JdbcOperations{
 
